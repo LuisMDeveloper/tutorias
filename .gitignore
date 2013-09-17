@@ -2,4 +2,7 @@
 /vendor
 composer.phar
 composer.lock
+
+## OS
+.directory
 .DS_Store
