@@ -6,3 +6,7 @@ composer.lock
 ## OS
 .directory
 .DS_Store
+
+## ide
+*.sublime-project
+*.sublime-workspace
