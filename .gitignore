@@ -10,3 +10,6 @@ composer.lock
 ## ide
 *.sublime-project
 *.sublime-workspace
+
+## others
+Notes
