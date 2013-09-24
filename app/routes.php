@@ -13,28 +13,79 @@
 
 Route::get('/', function()
 {
-
-	//$docentesSistemas = Carrera::find(1)->docentes;
-
-	//dd($docentesSistemas);
-
-	//$docente = Docente::find(1)->carrera;
-
-	//dd($docente);
-
-	$docente = Docente::where('carrera_id', '=', null)->get();
-
-	dd($docente);
-
-
-	return View::make('layouts.master')->with(array(
-		'title' => 'Tutorias'
-	));
+	Auth::logout();
+	return View::make('layouts.master');
 });
 
-Route::get('singin', function()
+Route::get('login', function()
 {
-	return View::make('singin')->with(array(
-		'title' => 'Tutorias'
-	));
+	return View::make('login');
 });
+
+
+Route::post('login', function()
+{
+	$credentials = array(
+		'username'	=> Input::get('username'),
+		'password'	=> Input::get('password')
+	);
+
+	$validation = Validator::make($credentials, User::$rules, User::$errorMessages);
+
+	if ( $validation->fails() ) {
+		return Redirect::to('login')->withErrors($validation);
+	}
+
+	if (Auth::attempt($credentials)) {
+		return Redirect::to('dashboard');
+	}
+
+	return Redirect::to('login');
+});
+
+
+Route::get('dashboard', function() 
+{
+	return 'Welcome to the dashboard ' . Auth::user()->nombre;
+});
+
+
+// Route::get('hash_password', function()
+// {
+// 	//$users = User::all();
+// 	$users = User::where('id', '>=', 755)->get();
+
+// 	foreach ($users as  $user) {
+// 		$user->password = Hash::make($user->password);
+// 		$user->save();
+// 	}
+
+// 	return 'Passwords Hashed';
+// 	die();
+// });
+
+// Route::get('create_roles', function() 
+// {
+// 	$admin = new Role;
+// 	$admin->name = 'Administrador';
+// 	$admin->save();
+
+// 	$jefe = new Role;
+// 	$jefe->name = 'Jefe de Carrera';
+// 	$jefe->save();
+
+// 	$coord = new Role;
+// 	$coord->name = 'Coordinador';
+// 	$coord->save();
+
+// 	$tutor = new Role;
+// 	$tutor->name = 'Tutor';
+// 	$tutor->save();
+
+// 	$tutorado = new Role;
+// 	$tutorado->name = 'Tutorado';
+// 	$tutorado->save();
+
+// 	return 'Roles Created';
+
+// });
