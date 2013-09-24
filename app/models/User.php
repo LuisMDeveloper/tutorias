@@ -3,7 +3,32 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
+use Zizaco\Entrust\HasRole;
+
 class User extends Eloquent implements UserInterface, RemindableInterface {
+
+	use HasRole;
+
+	/**
+	 * Error messages for Validation rules.
+	 *
+	 * @var array
+	 */
+	public static $errorMessages = array(
+    	'username.required'	=> 'Ingrese un usuario para continuar.',
+    	'password.required'	=> 'Ingrese una contraseña para continuar.',
+    	'exists'	=> 'El usuario no esta registrado en el sistema.'
+	);
+
+	/**
+	 * Validation rules.
+	 *
+	 * @var array
+	 */
+	public static $rules = array(
+		'username' => 'required|exists:users,username',
+		'password' => 'required'
+	);
 
 	/**
 	 * The database table used by the model.

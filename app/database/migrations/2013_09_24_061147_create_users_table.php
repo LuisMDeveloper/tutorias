@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocentesTable extends Migration {
+class CreateUsersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,18 +12,15 @@ class CreateDocentesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('docentes', function(Blueprint $table)
+		Schema::create('users', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('username', 45);
 			$table->string('nombre', 45);
 			$table->string('aPaterno', 45);
 			$table->string('aMaterno', 45);
-			$table->string('escolaridad', 45)->nullable();
-			$table->string('grado', 45);
-			$table->string('nomina', 45);
-			$table->string('clave');
-			$table->integer('carrera_id')->nullable();
-			$table->integer('role_id')->nullable();
+			$table->string('password');
+			$table->string('user_type', 3);
 			$table->timestamps();
 		});
 	}
@@ -35,7 +32,7 @@ class CreateDocentesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('docentes');
+		Schema::drop('users');
 	}
 
 }
