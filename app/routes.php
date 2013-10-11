@@ -13,79 +13,58 @@
 
 Route::get('/', function()
 {
-	Auth::logout();
-	return View::make('layouts.master');
-});
-
-Route::get('login', function()
-{
-	return View::make('login');
-});
-
-
-Route::post('login', function()
-{
-	$credentials = array(
-		'username'	=> Input::get('username'),
-		'password'	=> Input::get('password')
-	);
-
-	$validation = Validator::make($credentials, User::$rules, User::$errorMessages);
-
-	if ( $validation->fails() ) {
-		return Redirect::to('login')->withErrors($validation);
-	}
-
-	if (Auth::attempt($credentials)) {
-		return Redirect::to('dashboard');
-	}
-
+	//return View::make('layouts.master');
 	return Redirect::to('login');
 });
 
-
-Route::get('dashboard', function() 
+Route::get('register', function()
 {
-	return 'Welcome to the dashboard ' . Auth::user()->nombre;
+      //return View::make('layouts.master');
+      return View::make('register');
 });
 
+Route::post('register', 'AdminController@store');
 
-// Route::get('hash_password', function()
-// {
-// 	//$users = User::all();
-// 	$users = User::where('id', '>=', 755)->get();
+Route::get('login', 'AccessController@index');
 
-// 	foreach ($users as  $user) {
-// 		$user->password = Hash::make($user->password);
-// 		$user->save();
-// 	}
+Route::post('login', 'AccessController@login');
 
-// 	return 'Passwords Hashed';
-// 	die();
-// });
+Route::get('logout', 'AccessController@logout');
 
-// Route::get('create_roles', function() 
-// {
-// 	$admin = new Role;
-// 	$admin->name = 'Administrador';
-// 	$admin->save();
+Route::resource('alumno', 'AlumnoController');
 
-// 	$jefe = new Role;
-// 	$jefe->name = 'Jefe de Carrera';
-// 	$jefe->save();
+Route::get('admin', array('before' => 'auth|admin',
+            'uses' => 'AdminController@index'));
 
-// 	$coord = new Role;
-// 	$coord->name = 'Coordinador';
-// 	$coord->save();
+Route::get('formatos',  array('before' => 'auth',
+            'uses' => 'FormatController@getIndex'));
 
-// 	$tutor = new Role;
-// 	$tutor->name = 'Tutor';
-// 	$tutor->save();
+Route::get('formato/1a',  array('before' => 'auth',
+            'uses' => 'FormatController@getFormato1a'));
 
-// 	$tutorado = new Role;
-// 	$tutorado->name = 'Tutorado';
-// 	$tutorado->save();
+Route::post('formato/1a', array('before' => 'auth',
+            'uses' => 'FormatController@postFormato1a'));
 
-// 	return 'Roles Created';
+Route::get('formato/1',  array('before' => 'auth',
+            'uses' => 'FormatController@getFormato1'));
 
-// });
+Route::post('formato/1', array('before' => 'auth',
+            'uses' => 'FormatController@postFormato1'));
+
+Route::get('formato/habitos_estudio',  array('before' => 'auth',
+            'uses' => 'FormatController@getFormato2'));
+
+Route::post('formato/habitos_estudio', array('before' => 'auth',
+            'uses' => 'FormatController@postFormato2'));
+
+Route::get('activate/admin/{user}', array('before' => 'auth|admin',
+            'uses' => 'ActivationController@asAdmin'));
+
+Route::get('activate/tutor/{user}', array('before' => 'auth|admin',
+            'uses' => 'ActivationController@asTutor'));
+
+Route::get('activate/coordinator/{user}', array('before' => 'auth|admin',
+            'uses' => 'ActivationController@asCoord'));
+
+Route::get('deactivate/{user}', array('before' => 'auth|admin',
+            'uses' => 'ActivationController@deactivate'));

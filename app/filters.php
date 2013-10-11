@@ -78,3 +78,21 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+//Entrust::routeNeedsRole('admin*', 'Admin', Redirect::to('login') );
+
+//Entrust::routeNeedsRole('formato*', 'Tutorado', Redirect::to('login') );
+
+Route::filter('admin', function()
+{
+	if (Auth::user()->user_type !== 'admin') {
+		return Redirect::to('/');
+	}
+});
+
+Route::filter('coord', function()
+{
+	if (Auth::user()->user_type !== 'coord') {
+		return Redirect::to('/');
+	}
+});

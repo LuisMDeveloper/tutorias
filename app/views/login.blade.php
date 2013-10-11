@@ -7,9 +7,12 @@
 @section('content')
 <div class="row">
 	<div class="col-sm-4 col-sm-offset-4">
-		<div class="panel panel-default">
+	@foreach ($errors->all('<div class="alert alert-danger"><span class="glyphicon glyphicon-minus-sign"></span>  :message</div>') as $error)
+			{{ $error }}
+	@endforeach
+		<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3 class="panel-title">Acceso al programa de Tutorías</h3>
+			<h3 class="panel-title">Acceso al programa de Tutorías del ITSU</h3>
 		</div>
 			<div class="panel-body">
 				{{ Form::open() }}
@@ -17,14 +20,14 @@
 						{{ Form::label('username', 'Usuario:') }}
 						{{ Form::text('username', null, array( 
 						'class' => 'form-control',
-						'placeholder' => 'usuario'
+						'placeholder' => 'Número de Control o Nómina'
 						)) }}
 					</div>
 					<div class="form-group">
 						{{ Form::label('password', 'Contraseña:') }}
 						{{ Form::password('password', array( 
 						'class' => 'form-control',
-						'placeholder' => 'contraseña'
+						'placeholder' => 'Contraseña'
 						)) }}
 					</div>
 					{{ Form::submit('Entrar', array( 
@@ -32,12 +35,11 @@
 						)) }}
 				{{ Form::close() }}
 			</div>
+			<div class="panel-footer">
+			<span class="glyphicon glyphicon-hand-right"></span> Si no te has registrado en el sistema  {{ HTML::link('alumno/create', 'da click aqui') }}. <br/>
+			</div>
 		</div>
-		{{ $errors->first('username', '<div class="alert alert-danger"><span class="glyphicon glyphicon-minus-sign"></span>  :message</div>') }}
-		{{ $errors->first('password', '<div class="alert alert-danger"><span class="glyphicon glyphicon-minus-sign"></span>  :message</div>') }}
-		@if(isset($incorrectPassword))
-		<div class="alert alert-danger"><span class="glyphicon glyphicon-minus-sign"></span> {{ $incorrectPassword }}</div>
-		@endif
+		
 	</div>
 </div>
 @stop

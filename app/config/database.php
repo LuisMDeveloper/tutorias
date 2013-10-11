@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'tutorias',
-			'username'  => 'root',
-			'password'  => '',
+			'database'  => 'tecur025_tutorias',
+			'username'  => 'tecur025_tutoria',
+			'password'  => 'Tutorias2013',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

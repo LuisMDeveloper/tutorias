@@ -3,11 +3,11 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-use Zizaco\Entrust\HasRole;
+//use Zizaco\Entrust\HasRole;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use HasRole;
+	//use HasRole;
 
 	/**
 	 * Error messages for Validation rules.
@@ -72,6 +72,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getReminderEmail()
 	{
 		return $this->email;
+	}
+
+	public function userProfile()
+	{
+		return $this->hasOne('UserProfile');
+	}
+
+	public function Formato1a()
+	{
+		return $this->hasOne('Formato1a');
 	}
 
 }

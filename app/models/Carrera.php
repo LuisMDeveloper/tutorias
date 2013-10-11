@@ -6,4 +6,9 @@ class Carrera extends Eloquent {
 	{
 		return $this->hasMany('Docente');
 	}
+
+	public function grupos()
+	{
+		return $this->hasMany('Grupo');
+	}
 }
