@@ -9,13 +9,22 @@ class AdminController extends BaseController {
 		$tutores 			= User::where('user_type', '=', 'tutor')->get();
 		$coordinadores 		= User::where('user_type', '=', 'coord')->get();
 		$tutorados 			= User::where('user_type', '=', 'tutorado')->get();
+
+		$numAdmins		= User::where('user_type', '=', 'admin')->count();
+		$numTutores		= User::where('user_type', '=', 'tutor')->count();
+		$numCoord		= User::where('user_type', '=', 'coord')->count();
+		$numTutorados	= User::where('user_type', '=', 'tutorado')->count();
 		
 		return View::make('admin.index', array(
 			'tutorados' 		=> $tutorados,
 			'administradores'	=> $administradores,
 			'noActivados'		=> $noActivados,
 			'coordinadores'		=> $coordinadores,
-			'tutores'			=> $tutores
+			'tutores'			=> $tutores,
+			'numAdmins'			=> $numAdmins,
+			'numTutores'		=> $numTutores,	
+			'numCoord'			=> $numCoord,	
+			'numTutorados'		=> $numTutorados
 		));
 	}
 

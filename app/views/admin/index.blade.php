@@ -2,7 +2,25 @@
 
 @section('content')
 
-@if(count($noActivados) >= 1)
+<div class="row">
+	<div class="col-sm-3">
+		<ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#">
+                <span class="badge pull-right">{{ $numAdmins }}</span>
+                Administradores</a></li>
+            <li class="active"><a href="#">
+                <span class="badge pull-right">{{ $numCoord }}</span>
+                Coordinadores</a></li>
+            <li class="active"><a href="#">
+                <span class="badge pull-right">{{ $numTutores }}</span>
+                Tutores</a></li>
+            <li class="active"><a href="#">
+                <span class="badge pull-right">{{ $numTutorados }}</span>
+                Tutorados</a></li>
+        </ul>
+	</div>
+	<div class="col-sm-9">
+		@if(count($noActivados) >= 1)
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Usuarios Sin Activar</h3>
@@ -233,6 +251,8 @@
 		</tr>
 	@endforeach	
 	</table>
+	</div>
+</div>
 	</div>
 </div>
 
