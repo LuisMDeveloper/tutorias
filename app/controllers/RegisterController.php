@@ -96,4 +96,8 @@ class RegisterController extends BaseController {
 		return 'Welcome ' . Input::get('nombre');
 	}
 
+    public function edit($id){
+        $user = User::find($id);
+    }
+
 }
